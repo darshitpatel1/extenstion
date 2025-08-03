@@ -1,0 +1,32 @@
+/* style.css - shared styles for Advanced Inspect */
+#ai-sidebar-container {
+  font-size: 12px;
+}
+.ai-sidebar {
+  margin: 0;
+  padding: 8px;
+  background: #1e1e1e;
+  color: #eee;
+  font-family: monospace;
+}
+.ai-row {
+  padding: 4px;
+  border-bottom: 1px solid #333;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ai-row:hover {
+  background: #333;
+}
+.ai-row button {
+  background: #444;
+  color: #fff;
+  border: none;
+  padding: 2px 4px;
+  cursor: pointer;
+}
+.ai-row button:hover {
+  background: #666;
+}
