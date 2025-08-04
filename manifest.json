@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Advanced Inspect",
+  "version": "1.0",
+  "description": "Interactive DOM inspector and automation API.",
+  "permissions": ["scripting"],
+  "host_permissions": ["<all_urls>"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["sidebar.html", "sidebar.js", "inject.js", "style.css"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
