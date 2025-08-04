@@ -4,6 +4,8 @@
 
   const elementMap = new Map();
   let graph = [];
+  let observer;
+  let nextId = 0;
 
   // Load styles
   const link = document.createElement('link');
@@ -60,10 +62,12 @@
     elementMap.clear();
     const selector = 'input, textarea, select, button, a[href], [role="button"], [onclick]';
     const els = document.querySelectorAll(selector);
-    let idx = 0;
     els.forEach(el => {
-      const id = 'ai-' + (idx++);
-      el.dataset.aiId = id;
+      let id = el.dataset.aiId;
+      if (!id) {
+        id = 'ai-' + (nextId++);
+        el.dataset.aiId = id;
+      }
       const rect = el.getBoundingClientRect();
       graph.push({
         id,
@@ -83,8 +87,12 @@
   }
 
   function sendGraph() {
+    if (observer) observer.disconnect();
     buildGraph();
     window.postMessage({ source: 'content-script', action: 'graph', payload: graph }, '*');
+    if (observer) {
+      observer.observe(document.documentElement, { childList: true, subtree: true, attributes: true });
+    }
   }
 
   function highlight(el) {
@@ -147,7 +155,7 @@
     }
   });
 
-  const observer = new MutationObserver(() => {
+  observer = new MutationObserver(() => {
     sendGraph();
   });
   observer.observe(document.documentElement, { childList: true, subtree: true, attributes: true });
