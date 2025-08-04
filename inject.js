@@ -4,7 +4,9 @@
     for (const l of labels) {
       if (l.innerText.trim() === label) {
         const forId = l.getAttribute('for');
-        if (forId) return document.getElementById(forId);
+        if (forId) {
+          return document.getElementById(forId);
+        }
         return l.querySelector('input, textarea, select');
       }
     }
@@ -31,8 +33,11 @@
     if (selector) {
       el = document.querySelector(selector);
     } else if (text) {
-      el = Array.from(document.querySelectorAll('button, input[type="button"], input[type="submit"], a, [role="button"]'))
-        .find(e => e.innerText.trim() === text);
+      el = Array.from(
+        document.querySelectorAll(
+          'button, input[type="button"], input[type="submit"], a, [role="button"]'
+        )
+      ).find(e => e.innerText.trim() === text);
     }
     if (el) {
       el.click();
